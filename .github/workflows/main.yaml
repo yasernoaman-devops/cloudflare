@@ -16,7 +16,6 @@ jobs:
         with:
           node-version: 20
       - run: |
-           - unset CI
            npm install 
            npm run build
       - name: Publish to Cloudflare Pages
