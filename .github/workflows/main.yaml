@@ -14,7 +14,7 @@ jobs:
         with:
           node_version: 20
       - run: |
-           npm i
+           npm install --legacy-peer-deps
            npm run build
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
