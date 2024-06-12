@@ -4,6 +4,8 @@ on: [push]
 jobs:
   publish:
     runs-on: self-hosted
+    env:
+       CI: false
     permissions:
       contents: read
       deployments: write
@@ -14,6 +16,7 @@ jobs:
         with:
           node-version: 20
       - run: |
+           - unset CI
            npm install 
            npm run build
       - name: Publish to Cloudflare Pages
