@@ -7,17 +7,15 @@ jobs:
     permissions:
       contents: read
       deployments: write
-    name: Publish to Cloudflare Pages
+    name: checkout and build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-	    with:
-		  node-version: 18
-      - name: Build the application
-        run: |
-		    npm install	 
-            npm run build			
+        with:
+          node_version: 20
+      - run: |
+           npm i
+           npm run build
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
@@ -27,4 +25,4 @@ jobs:
           directory: build
           gitHubToken: ${{ secrets.API_GITHUB_TOKEN }}
           branch: main
-          wranglerVersion: '3'	 
+          wranglerVersion: '3'		
