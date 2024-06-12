@@ -1,1 +1,30 @@
 
+on: [push]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    name: Publish to Cloudflare Pages
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+	    with:
+		  node-version: 18
+      - name: Build the application
+        run: |
+		    npm install	 
+            npm run build			
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: 705203574476a404503f57e80c5c140d
+          projectName: cloudflare
+          directory: build
+          gitHubToken: ${{ secrets.API_GITHUB_TOKEN }}
+          branch: main
+          wranglerVersion: '3'	 
